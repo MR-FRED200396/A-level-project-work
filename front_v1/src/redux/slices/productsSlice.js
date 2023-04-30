@@ -27,6 +27,9 @@ const productSlice = createSlice({
     deleteProduct: (state, { payload }) => {
       delete state.selectedProducts[payload];
     },
+    deleteAllSelectedProducts: (state) => {
+      state.selectedProducts = {};
+    },
   },
   extraReducers: {
     [getAllProductsAction.pending]: (state) => {
@@ -43,6 +46,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { selectProduct, deleteProduct } = productSlice.actions;
+export const { selectProduct, deleteProduct, deleteAllSelectedProducts } =
+  productSlice.actions;
 
 export default productSlice.reducer;

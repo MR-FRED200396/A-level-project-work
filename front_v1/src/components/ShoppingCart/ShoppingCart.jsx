@@ -17,7 +17,10 @@ import {
 } from "../../redux/selectors/productSelectors";
 
 import { toggleModal } from "../../redux/slices/modalsSlice";
-import { deleteProduct } from "../../redux/slices/productsSlice";
+import {
+  deleteAllSelectedProducts,
+  deleteProduct,
+} from "../../redux/slices/productsSlice";
 
 import { validationResolver } from "./validation";
 
@@ -32,6 +35,7 @@ export const ShoppingCart = () => {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    reset,
   } = useForm({
     defaultValues: {
       firstName: "",
@@ -45,7 +49,12 @@ export const ShoppingCart = () => {
     dispatch(toggleModal("shoppingCart"));
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // не знав куди передати дані з форми
+    console.log(data);
+    dispatch(deleteAllSelectedProducts());
+    reset();
+  };
 
   const renderProductRow = ({
     id,
@@ -73,9 +82,12 @@ export const ShoppingCart = () => {
       onClose={onCloseModalHandler}
     >
       {!products.length ? (
-        <Typography variant="caption" color="error">
-          Shopping card is empty
-        </Typography>
+        <Box>
+          <Typography variant="caption" color="error">
+            Shopping card is empty
+          </Typography>
+          <Button onClick={onCloseModalHandler}>Continue buy</Button>
+        </Box>
       ) : (
         <Box
           sx={{
