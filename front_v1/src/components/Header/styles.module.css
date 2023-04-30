@@ -1,0 +1,13 @@
+.menuLink {
+  color: white;
+  text-decoration: none;
+}
+
+.activeMenuLink {
+  color: red;
+  text-decoration: none;
+}
+
+.storeIcon {
+  cursor: pointer;
+}
